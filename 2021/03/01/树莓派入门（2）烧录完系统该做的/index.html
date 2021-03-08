@@ -15,12 +15,16 @@
   
   <meta name="theme-color" content="#2f4154">
   
-    <meta name="description" content="">
+    <meta name="description" content="树莓派入门（2）烧录完系统该做的一、换源树莓派默认镜像源是国外的，由于众所周知的原因，国内访问速度非常慢，会带来许多不便，因此需要换成国内源。这里使用中科大软件源。
+
+登陆到树莓派。用VNC或PUTTY登录都可，进到命令行界面。
+
+备份源文件。执行如下命令：">
   
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-  <title>Hello World - Hexo</title>
+  <title>树莓派入门（2）烧录完系统该做的 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -165,7 +169,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Hello World">
+            <span class="h2" id="subtitle" title="树莓派入门（2）烧录完系统该做的">
               
             </span>
 
@@ -175,8 +179,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-08 20:11" pubdate>
-        March 8, 2021 pm
+      <time datetime="2021-03-01 21:00" pubdate>
+        March 1, 2021 pm
       </time>
     </span>
   
@@ -187,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      75 字
+      556 字
     </span>
   
 
@@ -197,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      7
        分钟
     </span>
   
@@ -227,22 +231,48 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Hello World</h1>
+            <h1 style="display: none">树莓派入门（2）烧录完系统该做的</h1>
             
             <div class="markdown-body">
-              <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+              <h1 id="树莓派入门（2）烧录完系统该做的"><a href="#树莓派入门（2）烧录完系统该做的" class="headerlink" title="树莓派入门（2）烧录完系统该做的"></a>树莓派入门（2）烧录完系统该做的</h1><h2 id="一、换源"><a href="#一、换源" class="headerlink" title="一、换源"></a>一、换源</h2><p>树莓派默认镜像源是国外的，由于众所周知的原因，国内访问速度非常慢，会带来许多不便，因此需要换成国内源。这里使用中科大软件源。</p>
+<ol>
+<li><p>登陆到树莓派。用VNC或PUTTY登录都可，进到命令行界面。</p>
+</li>
+<li><p>备份源文件。执行如下命令：</p>
+<span id="more"></span>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo cp <span class="hljs-regexp">/etc/</span>apt<span class="hljs-regexp">/sources.list /</span>etc<span class="hljs-regexp">/apt/</span>sources.list.bak<br><br>sudo cp <span class="hljs-regexp">/etc/</span>apt<span class="hljs-regexp">/sources.list.d/</span>raspi.list <span class="hljs-regexp">/etc/</span>apt<span class="hljs-regexp">/sources.list.d/</span>raspi.list.bak<br></code></pre></td></tr></table></figure></li>
+<li><p>修改软件更新源</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo nano <span class="hljs-regexp">/etc/</span>apt/sources.list<br></code></pre></td></tr></table></figure></li>
+<li><p>将第一行修改成中科大软件源地址，「Ctrl+O」进行保存，然后回车，「Ctrl+X」退出。（后面的都加#注释掉）</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">deb http:<span class="hljs-regexp">//mi</span>rrors.ustc.edu.cn<span class="hljs-regexp">/raspbian/</span>raspbian/ stretch main contrib non-free rpi<br></code></pre></td></tr></table></figure></li>
+</ol>
+<ol start="5">
+<li><p>修改系统更新源，执行如下命令：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo nano <span class="hljs-regexp">/etc/</span>apt<span class="hljs-regexp">/sources.list.d/</span>raspi.list<br></code></pre></td></tr></table></figure></li>
+<li><p>类似的，进去后将第一行修改成中科大的系统源地址，「Ctrl+O」进行保存，然后回车，「Ctrl+X」退出。（后面的都加#注释掉）</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">deb http:<span class="hljs-regexp">//mi</span>rrors.ustc.edu.cn<span class="hljs-regexp">/archive.raspberrypi.org/</span>debian/ stretch main ui<br></code></pre></td></tr></table></figure></li>
+<li><p>同步更新源，执行如下命令：sudo apt-get update</p>
+</li>
+<li><p>更新升级以安装软件包：sudo apt-get upgrade（上下两者要按顺序来）</p>
+</li>
+</ol>
+<h2 id="二、安装中文输入法"><a href="#二、安装中文输入法" class="headerlink" title="二、安装中文输入法"></a>二、安装中文输入法</h2><p>这个很简单，这里安装的是基于Fcitx框架的谷歌拼音输入法。同样在命令行窗口：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">sudo apt-<span class="hljs-built_in">get</span> install fcitx fcitx-googlepinyin fcitx-<span class="hljs-keyword">module</span>-cloudpinyin fcitx-sunpinyin<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h2 id="三、升级Python环境"><a href="#三、升级Python环境" class="headerlink" title="三、升级Python环境"></a>三、升级Python环境</h2><p>树莓派默认的Python环境是2.x的，不恰当的卸载2.x环境会造成桌面GUI系统的失效。</p>
+<p>不过似乎自带python3.7？</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">sudo apt-get autoremove python2<span class="hljs-number">.7</span> <span class="hljs-comment">//删除python2.7</span><br>sudo rm /usr/bin/python<br>sudo ln -s /usr/bin/python3<span class="hljs-number">.7</span> /usr/bin/python<br><span class="hljs-comment">//把原来python链接删除，新建新的链接，这样就默认使用python3.7</span><br></code></pre></td></tr></table></figure>
+
+<p>输入python，检查你的python当前环境。</p>
+<h2 id="配置FTP服务器"><a href="#配置FTP服务器" class="headerlink" title="配置FTP服务器"></a>配置FTP服务器</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">sudo apt-get install vsftpd 	<span class="hljs-comment">// 等待装好后输入下一行代码</span><br>sudo service vsftpd start 		<span class="hljs-comment">// 开启ftp服务</span><br>sudo vi /etc/vsftpd.conf	<br></code></pre></td></tr></table></figure>
+
+<p>在文件中进行如下修改：（照抄别人的）</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">anonymous_enable</span>=<span class="hljs-literal">YES</span><br><span class="hljs-attr">anon_upload_enable</span>=<span class="hljs-literal">YES</span><br><span class="hljs-attr">anon_world_readable_only</span>=<span class="hljs-literal">NO</span><br><span class="hljs-attr">anon_mkdir_write_enable</span>=<span class="hljs-literal">YES</span><br><span class="hljs-attr">anon_other_write_enable</span>=<span class="hljs-literal">YES</span><br><span class="hljs-attr">anon_root</span>=/srv/ftp<br><br><br><span class="hljs-attr">chown_uploads</span>=<span class="hljs-literal">YES</span><br><span class="hljs-attr">chown_username</span>=Ethan<br><span class="hljs-attr">delete_failed_uploads</span>=<span class="hljs-literal">YES</span><br><br><br><span class="hljs-attr">listen</span>=<span class="hljs-literal">YES</span><br><span class="hljs-attr">listen_port</span>=<span class="hljs-number">21</span><br><span class="hljs-attr">connect_from_port_20</span>=<span class="hljs-literal">YES</span><br><br><br><span class="hljs-attr">local_enable</span>=<span class="hljs-literal">YES</span><br><span class="hljs-attr">local_root</span>=/srv/ftp/<br><span class="hljs-attr">local_umask</span>=<span class="hljs-number">022</span><br><br><br><span class="hljs-attr">write_enable</span>=<span class="hljs-literal">YES</span><br></code></pre></td></tr></table></figure>
+
+<p>之后安装FileZilla之类的软件就可以来回传文件了。</p>
 
             </div>
             <hr>
@@ -263,9 +293,21 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2021/03/07/C++%E7%9A%84%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%B0%8F%E8%AE%A8%E8%AE%BA/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C++的引用类型小讨论</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2021/03/01/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89%E6%97%A0%E6%98%BE%E7%A4%BA%E5%99%A8%E7%83%A7%E5%BD%95%E7%B3%BB%E7%BB%9F%E5%B9%B6%E8%BF%9E%E6%8E%A5%E7%94%B5%E8%84%91/">
+                        <span class="hidden-mobile">树莓派入门（1）无显示器烧录系统并连接电脑</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
