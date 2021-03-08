@@ -31,6 +31,12 @@
     
     
     
+    <tags>
+      
+      <tag>树莓派</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -43,6 +49,12 @@
     <content type="html"><![CDATA[<h1 id="树莓派入门（1）无显示器烧录系统并连接电脑"><a href="#树莓派入门（1）无显示器烧录系统并连接电脑" class="headerlink" title="树莓派入门（1）无显示器烧录系统并连接电脑"></a>树莓派入门（1）无显示器烧录系统并连接电脑</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ol><li><p>下载安装工具与镜像文件</p><p>官方网站：<a href="https://www.raspberrypi.org/downloads/">https://www.raspberrypi.org/downloads/</a></p><span id="more"></span><p>下载可以分为两个方面：Imager以及镜像文件。</p><blockquote><p><strong>为什么要分为两个？不是可以直接Choose OS吗？</strong></p><p>在实践中，我发现Imager的烧录时间非常长，而且时常卡死。检查后发现主要的问题是镜像文件的下载（国内下载较慢，而且Raspberry Pi Imager不能显示下载程度）。</p></blockquote><p>关于系统的选择：对于无显示器用户（比如我），我更推荐原生系统。虽然主流的Linux操作系统是Ubuntu，但是Ubuntu在安装完毕后并不能直接生成用户Ubuntu，无显示屏的话操作非常繁杂。</p><p>原生系统分为三个：</p><pre><code>* 推荐版本【1G多】：带桌面，带了一部分软件* 带不少软件的版本【2G多】：带桌面，软件更多（个人觉得不需要）* Lite版本【0.7G左右】：不带桌面，纯命令行执行，不推荐小白使用</code></pre></li><li><p>下载连接工具</p><p>PUTTY、VNC-Viewer</p></li></ol><h2 id="烧录镜像文件"><a href="#烧录镜像文件" class="headerlink" title="烧录镜像文件"></a>烧录镜像文件</h2><ol><li><p>格式化内存卡 </p><p><strong>Linux系统的格式化与Windows系统不太一样，最好不要直接Windows格式化。</strong>Raspberry Pi Imager自己就集成了该功能。</p><p>在”Choose OS“一栏，选择”Erase“（长得像个垃圾桶），然后”Choose SD Card“选择自己插进去的SD卡。WRITE即可。</p></li><li><p>文件烧录</p><p>”Choose OS“一栏中，选择”Use Custom“， 然后浏览文件夹选中下载并解压好的镜像文件（.img），”Choose SD Card“，WRITE！</p><p>然后就可以去倒杯水等烧录好了。</p></li><li><p>烧录完成后，点击 CONTINUE 。</p></li><li><p>拔掉读卡器。</p></li></ol><h2 id="连接电脑"><a href="#连接电脑" class="headerlink" title="连接电脑"></a>连接电脑</h2><ol><li><p>新建ssh文件和conf文件 </p><blockquote><p>刚刚烧好的SD卡插入树莓派是无法正常上网的，这时我们就需要配置 SSH 文件。</p></blockquote><p>将转载了SD卡的读卡器重新插入电脑上，这时可以看见多了一个 boot磁盘，打开它。</p><p>首先勾选文件扩展名，使后面的扩展名可以被更改。然后新建一个文本文档，输入 ssh （将后缀名 .txt 删掉）。同样的，创建wpa_supplicant.conf。</p><p>ssh空着不要动（建这个文件似乎是为了防止树莓派通过不自动生成ssh文件来防止ssh连接），用记事本打开.conf，输入以下代码：</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">country</span>=CN<br><span class="hljs-attribute">ctrl_interface</span>=DIR=/var/run/wpa_supplicant <span class="hljs-attribute">GROUP</span>=netdev<br><span class="hljs-attribute">update_config</span>=1<br><br>network=&#123;<br>    <span class="hljs-attribute">ssid</span>=<span class="hljs-string">&quot;WIFI_NAME&quot;</span> <br>    <span class="hljs-attribute">psk</span>=<span class="hljs-string">&quot;PASSWD&quot;</span> <br>    <span class="hljs-attribute">priority</span>=1 <br>&#125;<br></code></pre></td></tr></table></figure><p>其中”WIFI_NAME” “PASSWD”怎么改就不要我教了吧。</p></li><li><p>寻找树莓派的IP地址<strong>【前后顺序不要颠倒】</strong></p><ul><li><p>拔掉 SD 卡（安全弹出）。</p></li><li><p>SD卡插进树莓派，并充上电。</p></li><li><p>然后发呆等待 10 分钟（树莓派首次加载启动大概需要 5-10 分钟）。</p></li><li><p>等待的过程中，你会发现你的WIFI有一个设备在连接（树莓派）。记录下它的IP。【是动态的，公网上是不能访问的，只能在局域网下访问】</p><blockquote><p>这里的查看通过你路由器上的查看终端实现。</p></blockquote></li></ul></li><li><p>PUTTY远程连接</p><ul><li>打开 putty-64bit-0.74-installer.msi ，进入安装界面。</li><li>next，install，finish【中间可以考虑改一下安装目录，防止变成C盘战士】</li></ul></li><li><p>安装完成后，先将电脑连上树莓派连接的WIFI（使其处于同一子网下），然后打开 putty ，输入树莓派的IP地址，再点击 Open 。WARNING信息点击 否(N)。</p></li><li><p>输入用户名和密码</p><p>默认用户：pi 默认密码：raspberry</p></li><li><p>至此，putty设置OK。</p></li></ol><h2 id="开启VNC服务（针对树莓派4B进行了更新）"><a href="#开启VNC服务（针对树莓派4B进行了更新）" class="headerlink" title="开启VNC服务（针对树莓派4B进行了更新）"></a>开启VNC服务（针对树莓派4B进行了更新）</h2><ol><li><p>首先输入命令：sudo raspi-config，按下回车后，进入配置界面。</p></li><li><p>通过上下键选择 Interface Options ，接着左右键选择 Select ，并按回车键。</p></li><li><p>接着上下键选择 VNC ，左右键选择 Select ，并按回车键。左右键选择Yes-OK。</p></li><li><p>上下键选择 Advanced Options ，左右键选择 Select ，并按回车键。</p></li><li><p>上下键选择 Resolution ，左右键选择 Select ，并按回车键。</p></li><li><p>接着是分辨率选择，上下键选择 DMT Mode 16 ，左右键选择 ok ，并按回车键。<strong>重要：否则会显得字体很小</strong></p></li><li><p>Finish。</p></li></ol><h2 id="VNC远程桌面连接"><a href="#VNC远程桌面连接" class="headerlink" title="VNC远程桌面连接"></a>VNC远程桌面连接</h2><p>与PUTTY类似的，安装VNC-Viewer应用程序。注意VNC-VIewer没有中文。</p><blockquote><p>期间可以选择添加”Desktop Shortcut“来添加桌面快捷方式。</p></blockquote><ul><li>首先打开VNC-Viewer。（可以选择取消勾选来阻止信息的上传）</li><li>在最上面地址栏输入树莓派的IP地址，并按回车键。</li><li>连接完毕后，弹出新窗口，点击 Continue 。</li><li>输入用户名和密码，再点击 OK 。（如果没有额外设置的话，仍然是pi的默认用户名密码。）</li></ul>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>树莓派</tag>
+      
+    </tags>
     
   </entry>
   
